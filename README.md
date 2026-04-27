@@ -1,8 +1,12 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Reciclatorios</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 
 
 <style>
@@ -144,6 +148,21 @@ section{
 
 <body>
 
+    <div id="map" style="height: 400px;"></div>
+
+    <script>
+var map = L.map('map').setView([25.78, -100.18], 13); // coordenadas (ejemplo Apodaca)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// marcador
+L.marker([25.78, -100.18]).addTo(map)
+  .bindPopup('Aquí estás 🚩')
+  .openPopup();
+</script>
+
 
 <!-- BLOQUE 1 -->
 <div class="header-top">
@@ -209,7 +228,21 @@ section{
         <p id="resultado"></p>
         <button onclick="siguientePregunta()">Siguiente</button>
     </div>
-
+</section>
+Periodicos viejos", "Cajas de pizza con restos de grasa", "Cuadernos sin espiral metalica"],
+    correcta: 1
+},
+{
+    pregunta: "¿Cuanto tarda aproximadamente, una lata de refresco en biodegradarse en la naturaleza?",
+    opciones: ["10 años", "200 a 500 años", "50 años"],
+    correcta: 1
+},
+{
+    pregunta: "¿Que es un centro de reciclaje?",
+    opciones: ["Un vertedero donde se entierra la basura para que se descomponga", "Una tienda donde se venden productos hechos exclusivamente de plastico", "Una instalacion donde se reciben, clasifican y procesan materiales para convertirlos en materia prima"],
+    correcta: 2
+},
+{
 <script>
 const preguntas = [
 {
