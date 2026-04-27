@@ -7,22 +7,17 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-
-
 <style>
-html{
-    scroll-behavior: smooth;
-}
-
-
 body{
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: #3f6b3f;
 }
 
+#map{
+    height: 400px;
+}
 
-/* BLOQUE 1 */
 .header-top{
     background-color: #a8c3a0;
     display: flex;
@@ -31,26 +26,6 @@ body{
     padding: 15px 30px;
 }
 
-
-.header-top h1{
-    font-size: 32px;
-    margin: 0;
-}
-
-
-/* LOGOS */
-.logos{
-    display: flex;
-    gap: 20px;
-}
-
-
-.logos img{
-    width: 100px;
-}
-
-
-/* BLOQUE 2 */
 .menu{
     background-color: #6c8f5e;
     display: flex;
@@ -59,258 +34,105 @@ body{
     padding: 15px;
 }
 
-
 .menu a{
     text-decoration: none;
     color: black;
     font-weight: bold;
 }
 
-
-/* BLOQUE 3 */
-.principal{
-    padding: 50px;
-}
-
-
-/* GRID */
-.grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-
-/* BLOQUE GRANDE */
-.item-grande{
-    grid-row: span 2;
-}
-
-
-.item-grande img{
-    width: 100%;
-    height: 415px;
-    object-fit: cover;
-}
-
-
-.item-grande p{
-    color: white;
-    text-align: center;
-    margin-top: 10px;
-}
-
-
-/* IMÁGENES NORMALES */
-.grid img{
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-
-/* SECCIONES */
 section{
-    padding: 80px 40px;
+    padding: 40px;
     color: white;
 }
-
-.zona-juego{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.objetos, .botes{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.item{
-    background-color: white;
-    color: black;
-    padding: 10px;
-    cursor: grab;
-    text-align: center;
-}
-
-.bote{
-    background-color: #a8c3a0;
-    padding: 20px;
-    text-align: center;
-    min-width: 120px;
-}
-
 </style>
 </head>
 
-
 <body>
 
-    <div id="map" style="height: 400px;"></div>
+<!-- MAPA -->
+<div id="map"></div>
 
-    <script>
-var map = L.map('map').setView([25.78, -100.18], 13); // coordenadas (ejemplo Apodaca)
+<!-- HEADER -->
+<div class="header-top">
+    <h1>RECICLATORIOS</h1>
+</div>
+
+<!-- MENU -->
+<div class="menu">
+    <a href="#aprende">Aprende</a>
+    <a href="#donde">Dónde reciclar</a>
+    <a href="#juegos">Juegos</a>
+</div>
+
+<!-- JUEGO QUIZ -->
+<section id="juegos">
+<h2>Quiz ♻️</h2>
+<p id="pregunta"></p>
+<div id="opciones"></div>
+<p id="resultado"></p>
+<button onclick="siguientePregunta()">Siguiente</button>
+</section>
+
+<!-- OTRAS SECCIONES -->
+<section id="aprende">
+<h2>Aprende a reciclar</h2>
+<p>Información básica sobre reciclaje.</p>
+</section>
+
+<section id="donde">
+<h2>Dónde reciclar</h2>
+<p>Lugares de reciclaje.</p>
+</section>
+
+<script>
+// MAPA
+var map = L.map('map').setView([25.78, -100.18], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// marcador
 L.marker([25.78, -100.18]).addTo(map)
   .bindPopup('Aquí estás 🚩')
   .openPopup();
-</script>
 
-
-<!-- BLOQUE 1 -->
-<div class="header-top">
-    <h1>RECICLATORIOS</h1>
-
-
-    <div class="logos">
-        <img src="https://tse3.mm.bing.net/th/id/OIP.JNYfxsVM5y-gSFeQdWdvngHaHa?rs=1&pid=ImgDetMain&o=7&rm=3">
-        <img src="https://tse3.mm.bing.net/th/id/OIP.YrmhDxy7KanKF2sCm--b2QHaIu?rs=1&pid=ImgDetMain&o=7&rm=3">
-    </div>
-</div>
-
-
-<!-- BLOQUE 2 -->
-<div class="menu">
-    <a href="#aprende">Aprende a reciclar</a>
-    <a href="#donde">Dónde reciclar</a>
-    <a href="#objetivo">Nuestro objetivo</a>
-    <a href="#conocenos">Conócenos</a>
-    <a href="#juegos">Juegos</a>
-</div>
-
-
-<!-- BLOQUE 3 -->
-<div class="principal">
-
-
-    <div class="grid">
-
-
-        <!-- ARCOIRIS + TEXTO -->
-        <div class="item-grande">
-            <img src="https://tse3.mm.bing.net/th/id/OIP.Ld0ALVeHBe08o-T9SRUs5AHaE7?rs=1&pid=ImgDetMain&o=7&rm=3">
-            <p>Aprende a reciclar y ayuda al planeta con pequeñas acciones.
-                <h2> NOVEDADES!</h2>
-                <P> Rutas ecologicas y separacion en el relleno sanitario:</P>
-                <p> De acuerdo con la Gaceta Municipal de marzo 2026, el municipio implementara rutas ecologicas para promover la separacion de residuos y la reduccion del volumen de basura en el relleno sanitario. El concesionario instalara un Centro de Acopio y Separacion especializado en el sitio.
-
-                </p>
-            </p>
-        </div>
-
-
-        <!-- OTRAS IMÁGENES -->
-        <img src="https://tse2.mm.bing.net/th/id/OIP.KJrVSaeZ5UEDqn-Ak5e67gHaE8?rs=1&pid=ImgDetMain&o=7&rm=3">
-        <img src="https://th.bing.com/th/id/R.25e599134090c3340f86e24701401ce1?rik=KUwtahbccyCVYw&pid=ImgRaw&r=0">
-
-
-    </div>
-
-
-</div>
-
-<section id="juegos">
-    <h2>Juegos</h2>
-    <h3>Quiz de reciclaje ♻️</h3>
-
-    <div id="quiz-container">
-        <p id="pregunta"></p>
-
-        <div id="opciones"></div>
-
-        <p id="resultado"></p>
-        <button onclick="siguientePregunta()">Siguiente</button>
-    </div>
-</section>
-Periodicos viejos", "Cajas de pizza con restos de grasa", "Cuadernos sin espiral metalica"],
-    correcta: 1
-},
-{
-    pregunta: "¿Cuanto tarda aproximadamente, una lata de refresco en biodegradarse en la naturaleza?",
-    opciones: ["10 años", "200 a 500 años", "50 años"],
-    correcta: 1
-},
-{
-    pregunta: "¿Que es un centro de reciclaje?",
-    opciones: ["Un vertedero donde se entierra la basura para que se descomponga", "Una tienda donde se venden productos hechos exclusivamente de plastico", "Una instalacion donde se reciben, clasifican y procesan materiales para convertirlos en materia prima"],
-    correcta: 2
-},
-{
-<script>
+// QUIZ
 const preguntas = [
 {
-    pregunta: "¿Cual es el objetivo principal de la Economia Circular?",
-    opciones: ["Aumentar la produccion de productos desechables para generar empleos", "Mantener los productos y materiales en uso el mayor tiempo posible", "Eliminar por completo el uso de cualquier tipo de plastico"],
-    correcta: 1
-},
-{
-    pregunta: "¿que significan las 3R?",
+    pregunta: "¿Qué significan las 3R?",
     opciones: ["Reciclar, Reducir, Reutilizar", "Reubicar, Reducir, Reciclar", "Reutilizar, Rapidez, Reubicar"],
     correcta: 0
 },
 {
-        pregunta: "¿que significan las 3R?",
-    opciones: ["Reciclar, Reducir, Reutilizar", "Reubicar, Reducir, Reciclar", "Reutilizar, Rapidez, Reubicar"],
-    correcta: 0
-},
-{
-    pregunta: "¿Que es el PET?",
-    opciones: ["Polimero de Energia Termica", "Polietileno Tereftalato", "Plastico de Envase Transparente"],
-    correcta: 0
-},
-{
-    pregunta: "¿Cuantos tipo de PET existen?",
-    opciones: ["7 tipos ", "3 tipos", "12 tipos"],
-    correcta: 0
-},
-{
-    pregunta: "¿Que materiales No se pueden reciclar?",
-    opciones: ["Papel higienico usado, servilletas sucias y ceramica", "Latas de aluminio y envases de leche de tetra pak", "Revistas y botellas de detergente"],
-    correcta: 0
-},
-{
-    pregunta: "¿Dónde va un espejo roto o vaso de cristal de cocina?",
-    opciones: ["en el bote verde de Vidrios", "en el bote gris o naramja de Restos o Desechos", "En el bote amarillo de envases"],
+    pregunta: "¿Qué es el PET?",
+    opciones: ["Polímero de Energía Térmica", "Polietileno Tereftalato", "Plástico transparente"],
     correcta: 1
 }
 ];
 
 let indice = 0;
-let puntaje = 0;
 
 function cargarPregunta(){
-    const pregunta = document.getElementById("pregunta");
-    const opciones = document.getElementById("opciones");
-    const resultado = document.getElementById("resultado");
+    const p = document.getElementById("pregunta");
+    const op = document.getElementById("opciones");
+    op.innerHTML = "";
 
-    resultado.textContent = "";
-    opciones.innerHTML = "";
+    p.textContent = preguntas[indice].pregunta;
 
-    pregunta.textContent = preguntas[indice].pregunta;
-
-    preguntas[indice].opciones.forEach((op, i) => {
-        const boton = document.createElement("button");
-        boton.textContent = op;
-        boton.onclick = () => verificarRespuesta(i);
-        opciones.appendChild(boton);
+    preguntas[indice].opciones.forEach((o,i)=>{
+        const btn = document.createElement("button");
+        btn.textContent = o;
+        btn.onclick = ()=>verificar(i);
+        op.appendChild(btn);
     });
 }
 
-function verificarRespuesta(i){
-    const resultado = document.getElementById("resultado");
-
-    if(i === preguntas[indice].correcta){
-        resultado.textContent = "¡Correcto! ✅";
-        puntaje++;
+function verificar(i){
+    const r = document.getElementById("resultado");
+    if(i===preguntas[indice].correcta){
+        r.textContent = "Correcto ✅";
     } else {
-        resultado.textContent = "Incorrecto ❌";
+        r.textContent = "Incorrecto ❌";
     }
 }
 
@@ -319,116 +141,12 @@ function siguientePregunta(){
     if(indice < preguntas.length){
         cargarPregunta();
     } else {
-        document.getElementById("quiz-container").innerHTML =
-        "<h3>Terminaste 🎉</h3><p>Puntaje: " + puntaje + " / 10</p>";
+        document.getElementById("juegos").innerHTML = "<h2>Terminaste 🎉</h2>";
     }
 }
 
 cargarPregunta();
 </script>
 
-<hr>
-
-<h3>Arrastra el residuo al bote correcto ♻️</h3>
-
-<div class="zona-juego">
-    
-    <!-- OBJETOS -->
-    <div class="objetos">
-        <div class="item" draggable="true" id="plastico1">Botella</div>
-        <div class="item" draggable="true" id="organico1">Cáscara</div>
-        <div class="item" draggable="true" id="vidrio1">Vidrio</div>
-        <div class="item" draggable="true" id="papel1">Periódico</div>
-    </div>
-
-    <!-- BOTES -->
-    <div class="botes">
-        <div class="bote" data-tipo="plastico">Plástico</div>
-        <div class="bote" data-tipo="organico">Orgánico</div>
-        <div class="bote" data-tipo="vidrio">Vidrio</div>
-        <div class="bote" data-tipo="papel">Papel</div>
-    </div>
-
-</div>
-
-<p id="resultadoDrag"></p>
-
-<script>
-const items = document.querySelectorAll(".item");
-const botes = document.querySelectorAll(".bote");
-let arrastrado = null;
-
-items.forEach(item => {
-    item.addEventListener("dragstart", () => {
-        arrastrado = item;
-    });
-});
-
-botes.forEach(bote => {
-    bote.addEventListener("dragover", (e) => {
-        e.preventDefault();
-    });
-
-    bote.addEventListener("drop", () => {
-        const tipoBote = bote.getAttribute("data-tipo");
-        const idItem = arrastrado.id;
-
-        let correcto = false;
-
-        if(idItem.includes("plastico") && tipoBote === "plastico") correcto = true;
-        if(idItem.includes("organico") && tipoBote === "organico") correcto = true;
-        if(idItem.includes("vidrio") && tipoBote === "vidrio") correcto = true;
-        if(idItem.includes("papel") && tipoBote === "papel") correcto = true;
-
-        const resultado = document.getElementById("resultadoDrag");
-
-        if(correcto){
-            resultado.textContent = "¡Correcto! ✅";
-            arrastrado.style.display = "none";
-        } else {
-            resultado.textContent = "Incorrecto ❌";
-        }
-    });
-});
-</script>
-
-
-<!-- SECCIONES -->
-
-
-<section id="aprende">
-    <h2>Aprende a reciclar</h2>
-    <p>Aquí irá la información sobre reciclaje.</p>
-</section>
-
-
-<section id="donde">
-    <h2>Dónde reciclar</h2>
-    <p>Aquí pondrás lugares para reciclar.</p>
-</section>
-
-
-<section id="objetivo">
-    <h2>Nuestro objetivo</h2>
-    <p>Nuestro objetivo es conseguir que los jovenes estudiantes obtengan informacion acerca de como reciclar y como cuidar su medio ambiente.
-        
-    <p>Esto es muy importante ya que nos ayuda a crear conciencia acerca de como podemos realizar un mejor trabajo cuidando el medio ambiente en Mexico. Ademas de saber lo que los jovenes buscan actualmente, sabemos que las TIC sion necesarias en esta epoca ya que representan a toda una generacion de personas conectadas mas que nunca.</p>
-       
-    <p>Buscamos crear conciencia y buscar la accion de los jovenes en la vida ambiental y en como sus decisiones si aportan aunque sean muy pequeñas, ya que en nuestra vision las acciones son las que logran un cambio y no solo hablar y quedarse con los brazos cruzados.</p>
-    </p>
-</section>
-
-<section id="conocenos">
-    <h2>Conócenos</h2>
-    <p>Somos un grupo de estudiantes del CETIS No.71, ubicado en el Blvd. Alvaro Obregon, Antonio J. Bermudez, en Reynosa Tamaulipas.</p>
-    <p>Somos de la carrera tecnica de Administracion en Recursos Humanos y estamos en 4to semestre, grupo A, de la generacion 2024-2027.</p>
-    <p>Nosotros somos: De La Cruz Cruz Angel David, Bnada Guerrero Ana Sofia, Epigmenio Borbolla Estrella, Ramirez Ramos Melanie Zayle y Uvalle Dominguez Dylan Eduardo.</p>
-    <p>Nuestra asesora de proyecto, la maestra e ingeniera Miriam Janeth Hernandez Guerrero
-    </p>
-</section>
-
-
-
-
 </body>
-</html
+</html>
