@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <title>Reciclatorios</title>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
 
 <style>
 html{
@@ -144,6 +148,21 @@ section{
 
 <body>
 
+    <div id="map" style="height: 400px;"></div>
+
+    <script>
+var map = L.map('map').setView([25.78, -100.18], 13); // coordenadas (ejemplo Apodaca)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// marcador
+L.marker([25.78, -100.18]).addTo(map)
+  .bindPopup('Aquí estás 🚩')
+  .openPopup();
+</script>
+
 
 <!-- BLOQUE 1 -->
 <div class="header-top">
@@ -210,22 +229,7 @@ section{
         <button onclick="siguientePregunta()">Siguiente</button>
     </div>
 </section>
-
-<script>
-const preguntas = [
-{
-    pregunta: "¿Cual es el objetivo principal de la Economia Circular?",
-    opciones: ["Aumentar la produccion de productos desechables para generar empleos", "Mantener los productos y materiales en uso el mayor tiempo posible", "Eliminar por completo el uso de cualquier tipo de plastico"],
-    correcta: 1
-},
-{
-    pregunta: "¿que significan las 3R?",
-    opciones: ["Reciclar, Reducir, Reutilizar", "Reubicar, Reducir, Reciclar", "Reutilizar, Rapidez, Reubicar"],
-    correcta: 0
-},
-{
-    pregunta: "¿Cual de los siguientes, NO es un residuo reciclable en el contenedor de papel/carton?",
-    opciones: ["Periodicos viejos", "Cajas de pizza con restos de grasa", "Cuadernos sin espiral metalica"],
+Periodicos viejos", "Cajas de pizza con restos de grasa", "Cuadernos sin espiral metalica"],
     correcta: 1
 },
 {
@@ -239,8 +243,21 @@ const preguntas = [
     correcta: 2
 },
 {
-    pregunta: "¿Por que es importante reciclar?",
-    opciones: ["Porque evita la extraccion de nuevos recursos naturales y reduce la energia necesaria para fabricar productos", "Porque hace que la basura redusca de manera automatica", "Porque hay una ley que obliga a hacerlo todos los dias los 7 dias de la semana, los 365 dias del año"],
+<script>
+const preguntas = [
+{
+    pregunta: "¿Cual es el objetivo principal de la Economia Circular?",
+    opciones: ["Aumentar la produccion de productos desechables para generar empleos", "Mantener los productos y materiales en uso el mayor tiempo posible", "Eliminar por completo el uso de cualquier tipo de plastico"],
+    correcta: 1
+},
+{
+    pregunta: "¿que significan las 3R?",
+    opciones: ["Reciclar, Reducir, Reutilizar", "Reubicar, Reducir, Reciclar", "Reutilizar, Rapidez, Reubicar"],
+    correcta: 0
+},
+{
+        pregunta: "¿que significan las 3R?",
+    opciones: ["Reciclar, Reducir, Reutilizar", "Reubicar, Reducir, Reciclar", "Reutilizar, Rapidez, Reubicar"],
     correcta: 0
 },
 {
